@@ -7,8 +7,8 @@ const Navbar = () => {
       <div className={styles.navbar}>
         <div className={styles.links}>
           <Link href="/">Home</Link>
-          <Link href="/users">Users</Link>
-          <Link href="/addusers">Add Users</Link>
+          {/* <Link href="/users">Users</Link> */}
+          {/* <Link href="/addusers">Add Users</Link> */}
         </div>
       </div>
     </>

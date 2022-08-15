@@ -2,6 +2,8 @@ import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useState } from "react";
 import config from "../utils/config";
+import UsersList from "../components/UsersList";
+import UserForm from "../components/UserForm";
 
 export default function Home({ data }) {
   console.log(data);
@@ -91,102 +93,34 @@ export default function Home({ data }) {
   return (
     <>
       <div className="container">
-        {/* user form */}
+        <UserForm
+          addUser={addUser}
+          updateUser={updateUser}
+          setName={setName}
+          setEmail={setEmail}
+          setPhone={setPhone}
+          name={name}
+          email={email}
+          phone={phone}
+          editMode={editMode}
+          editId={editId}
+        />
 
-        {/* <h4 className="mt-4 text-center">User Form</h4> */}
-        <form className={styles.formstyle}>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Enter user name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <br />
-          <input
-            className="form-control"
-            type="email"
-            placeholder="Enter user email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <br />
-          <input
-            className="form-control"
-            type="number"
-            placeholder="Enter user phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-          />
-          <br />
-          {editMode ? (
-            <button
-              onClick={(e) => updateUser(e, editId)}
-              className="form-control btn btn-secondary"
-            >
-              Edit
-            </button>
-          ) : (
-            <button onClick={addUser} className="form-control btn btn-primary">
-              Add
-            </button>
-          )}
-        </form>
-
-        {/* user table */}
-
-        {/* <h4 className="mt-4 mb-4 text-center">User Data</h4> */}
-
-        <table className="mt-5 table">
-          <thead className="">
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-                <td>
-                  <button
-                    className="btn btn-secondary btn-sm me-2"
-                    onClick={() => {
-                      setEditMode(true);
-                      setName(user.name);
-                      setEmail(user.email);
-                      setPhone(user.phone);
-                      setEditId(user._id);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => deleteUser(user._id, index)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <UsersList
+          users={users}
+          deleteUser={deleteUser}
+          setName={setName}
+          setEmail={setEmail}
+          setPhone={setPhone}
+          setEditId={setEditId}
+          setEditMode={setEditMode}
+        />
       </div>
     </>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await axios.get(`${config.API_URL}/getUsers`);
   return {
     props: {
