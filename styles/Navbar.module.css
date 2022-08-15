@@ -1,0 +1,26 @@
+.navbar {
+  width: 100%;
+  height: 60px;
+  background-color: rgb(28, 28, 28);
+  display: flex;
+  justify-content: center;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.links a {
+  margin-left: 40px;
+  color: white;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: gray;
+}
