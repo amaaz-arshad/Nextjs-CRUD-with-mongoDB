@@ -90,6 +90,7 @@ export default function Home({ data }) {
         alert(error.response.data.message);
       });
   };
+
   return (
     <>
       <div className="container">
